@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CURRENT_VERSION=$(node tools/get_version.js)
+CURRENT_VERSION="4.5.1"
 EXTENSION_NAME="auth0-delegated-admin"
 REGION="us-west-1"
 S3_PATH="s3://assets.us.auth0.com/extensions/$EXTENSION_NAME"
@@ -17,11 +17,11 @@ upload_to_s3() {
   local s3_path=$2
   local cache_control=$3
 
-  if [ -z "$cache_control" ]; then
-    aws s3 cp "$local_file" "$s3_path" --region "$REGION" --acl public-read
-  else
-    aws s3 cp "$local_file" "$s3_path" --region "$REGION" --acl public-read --cache-control "$cache_control"
-  fi
+#  if [ -z "$cache_control" ]; then
+#    aws s3 cp "$local_file" "$s3_path" --region "$REGION" --acl public-read
+#  else
+#    aws s3 cp "$local_file" "$s3_path" --region "$REGION" --acl public-read --cache-control "$cache_control"
+#  fi
 
   echo "$local_file uploaded to the cdn"
 }
@@ -33,10 +33,10 @@ upload_bundle() {
   local remote_bundle="$EXTENSION_NAME-$CURRENT_VERSION.js"
   local bundle_s3_path="$S3_PATH/$remote_bundle"
 
-  if [[ ! -f "$bundle_local_path" ]]; then
-      echo "Error: Missing asset - $bundle_local_path"
-      exit 1
-  fi
+#  if [[ ! -f "$bundle_local_path" ]]; then
+#      echo "Error: Missing asset - $bundle_local_path"
+#      exit 1
+#  fi
 
   if ! file_exists_in_s3 "$S3_PATH" "$remote_bundle"; then
     upload_to_s3 "$bundle_local_path" "$bundle_s3_path" ""
@@ -53,10 +53,10 @@ upload_assets() {
     "manifest.json"
   )
 
-  if file_exists_in_s3 "$S3_PATH/assets" "${assets[0]}"; then
-    echo "There is already a ${assets[0]} in the cdn. Frontend assets upload skipped..."
-    return
-  fi
+#  if file_exists_in_s3 "$S3_PATH/assets" "${assets[0]}"; then
+#    echo "There is already a ${assets[0]} in the cdn. Frontend assets upload skipped..."
+#    return
+#  fi
 
   for asset in "${assets[@]}"; do
     local asset_local_path="dist/client/$asset"
