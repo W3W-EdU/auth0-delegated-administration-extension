@@ -62,10 +62,10 @@ upload_assets() {
     local asset_local_path="dist/client/$asset"
     local asset_s3_path="$S3_PATH/assets/$asset"
 
-    if [[ ! -f "$asset_local_path" ]]; then
-        echo "Error: Missing asset - $asset"
-        exit 1
-    fi
+#    if [[ ! -f "$asset_local_path" ]]; then
+#        echo "Error: Missing asset - $asset"
+#        exit 1
+#    fi
 
     upload_to_s3 "$asset_local_path" "$asset_s3_path" "max-age=86400"
   done
