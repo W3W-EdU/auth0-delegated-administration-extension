@@ -53,10 +53,10 @@ upload_assets() {
     "manifest.json"
   )
 
-#  if file_exists_in_s3 "$S3_PATH/assets" "${assets[0]}"; then
-#    echo "There is already a ${assets[0]} in the cdn. Frontend assets upload skipped..."
-#    return
-#  fi
+  if file_exists_in_s3 "$S3_PATH/assets" "${assets[0]}"; then
+    echo "There is already a ${assets[0]} in the cdn. Frontend assets upload skipped..."
+    return
+  fi
 
   for asset in "${assets[@]}"; do
     local asset_local_path="dist/client/$asset"
